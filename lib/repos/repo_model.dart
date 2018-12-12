@@ -6,8 +6,12 @@ class RepoRepository {
   RepoRepository(this._api);
 
   Future<List<Repo>> getRepoList() async {
+    List<Repo> result = [];
     final list = await _api.getRepoList();
-    return list.map((item) => Repo.fromJson(item));
+    for (var item in list) {
+      result.add(Repo.fromJson(item));
+    }
+    return result;
   }
 }
 
