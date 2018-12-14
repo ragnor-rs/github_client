@@ -22,7 +22,7 @@ void main() {
   });
 
   test("RepoRepository", () async {
-    var repoRepository = RepoRepository(GitHubApi(client));
+    var repoRepository = RepoRepositoryImpl(GitHubApi(client));
     var repoList = await repoRepository.getRepoList();
     expect(repoList[0].id, 123);
     expect(repoList[0].name, 'test');

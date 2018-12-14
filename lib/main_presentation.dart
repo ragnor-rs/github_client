@@ -20,7 +20,7 @@ class GitHubClientApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MainComponentProvider(
-      mainComponent: MainComponent(),
+      mainComponent: MainComponentImpl(),
       child: MaterialApp(
           title: 'Flutter Demo',
           home: Scaffold(

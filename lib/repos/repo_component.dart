@@ -1,12 +1,17 @@
 import 'package:github_client/main_model.dart';
 import 'package:github_client/repos/repo_model.dart';
 
-class RepoComponent {
+abstract class RepoComponent {
+  RepoRepository get repoRepository;
+}
+
+class RepoComponentImpl implements RepoComponent {
   RepoRepository _repoRepository;
 
-  RepoComponent(GitHubApi gitHubApi) {
-    _repoRepository = RepoRepository(gitHubApi);
+  RepoComponentImpl(GitHubApi gitHubApi) {
+    _repoRepository = RepoRepositoryImpl(gitHubApi);
   }
 
+  @override
   get repoRepository => _repoRepository;
 }

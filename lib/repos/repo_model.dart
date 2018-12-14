@@ -1,10 +1,15 @@
 import 'package:github_client/main_model.dart';
 
-class RepoRepository {
+abstract class RepoRepository {
+  Future<List<Repo>> getRepoList();
+}
+
+class RepoRepositoryImpl implements RepoRepository {
   final GitHubApi _api;
 
-  RepoRepository(this._api);
+  RepoRepositoryImpl(this._api);
 
+  @override
   Future<List<Repo>> getRepoList() async {
     List<Repo> result = [];
     final list = await _api.getRepoList();
