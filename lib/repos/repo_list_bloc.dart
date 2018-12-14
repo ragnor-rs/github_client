@@ -1,10 +1,13 @@
 import 'package:bloc/bloc.dart';
 import 'package:github_client/repos/repo_model.dart';
+import 'package:github_client/repos/repo_component.dart';
 
 class RepoListBloc extends Bloc<FetchRepoListEvent, RepoListState> {
   final RepoRepository _repository;
 
-  RepoListBloc(this._repository);
+  RepoListBloc(RepoComponent serviceContainer) : _repository = serviceContainer.repoRepository {
+    dispatch(FetchRepoListEvent());
+  }
 
   @override
   RepoListState get initialState => RepoListState.initial();

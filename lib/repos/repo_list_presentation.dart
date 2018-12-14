@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:github_client/main_component.dart';
 import 'package:github_client/repos/repo_list_bloc.dart';
-import 'package:github_client/repos/repo_service_contaner.dart';
 
 class RepoListPage extends StatefulWidget {
   @override
@@ -9,23 +9,11 @@ class RepoListPage extends StatefulWidget {
 }
 
 class _RepoListPageState extends State<RepoListPage> {
-  final RepoListBloc _bloc = RepoListBloc(RepoServiceContainer.instance().repoRepository);
-
-  _RepoListPageState() {
-    _bloc.dispatch(FetchRepoListEvent());
-  }
-
-
-  @override
-  void dispose() {
-    super.dispose();
-    _bloc.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
+    var mainServiceContainer = MainComponent.of(context);
     return BlocBuilder(
-      bloc: _bloc,
+      bloc: RepoListBloc(mainServiceContainer.repoComponent),
       builder: (BuildContext context, RepoListState state) {
         if (state.isLoading) {
           return Center(

@@ -1,28 +1,17 @@
-import 'dart:convert';
-
-import 'package:http/http.dart' as http;
+import 'package:github_client/main_model.dart';
 
 class RepoRepository {
   final GitHubApi _api;
 
   RepoRepository(this._api);
 
-  Future<List<Repo>> getRepoList() async => _api.getRepoList();
-}
-
-class GitHubApi {
   Future<List<Repo>> getRepoList() async {
-    final response = await http.get('https://api.github.com/users/ragnor-rs/repos');
-    if (response.statusCode == 200) {
-      List<Repo> result = [];
-      List<dynamic> listJson = json.decode(response.body);
-      for (var repoJson in listJson) {
-        result.add(Repo.fromJson(repoJson));
-      }
-      return result;
-    } else {
-      throw Exception('Failed to load repo list');
+    List<Repo> result = [];
+    final list = await _api.getRepoList();
+    for (var item in list) {
+      result.add(Repo.fromJson(item));
     }
+    return result;
   }
 }
 
