@@ -1,17 +1,22 @@
-import 'package:flutter/widgets.dart';
+import 'package:github_client/main_model.dart';
 import 'package:github_client/repos/repo_component.dart';
+import 'package:http/http.dart' as http;
 
-class MainComponent extends InheritedWidget {
-  final RepoComponent repoComponent;
+class MainComponent {
+  http.Client _httpClient;
+  GitHubApi _gitHubApi;
 
-  MainComponent({@required this.repoComponent, @required child}) : super(child: child);
+  RepoComponent _repoComponent;
 
-  @override
-  bool updateShouldNotify(MainComponent oldWidget) {
-    return false
-      || repoComponent != oldWidget.repoComponent;
+  MainComponent() {
+    _httpClient = http.Client();
+    _gitHubApi = GitHubApi(_httpClient);
+
+    _repoComponent = RepoComponent(_gitHubApi);
   }
 
-  static MainComponent of(BuildContext context) =>
-      context.inheritFromWidgetOfExactType(MainComponent);
+  get httpClient => _httpClient;
+  get gitHubApi => _gitHubApi;
+
+  get repoComponent => _repoComponent;
 }

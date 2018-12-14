@@ -18,7 +18,7 @@ void main() {
       }
     });
 
-    test('nothing', () async {
+    test('Repo list loaded', () async {
       // Check whether 'dali' item exists
       expect(await driver.getText(flutter_driver.find.text('dali')), 'dali');
     });

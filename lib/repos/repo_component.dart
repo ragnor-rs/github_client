@@ -1,9 +1,12 @@
 import 'package:github_client/main_model.dart';
 import 'package:github_client/repos/repo_model.dart';
-import 'package:http/http.dart' as http;
 
 class RepoComponent {
-  final RepoRepository repoRepository;
+  RepoRepository _repoRepository;
 
-  RepoComponent(http.Client client) : this.repoRepository = RepoRepository(GitHubApi(client));
+  RepoComponent(GitHubApi gitHubApi) {
+    _repoRepository = RepoRepository(gitHubApi);
+  }
+
+  get repoRepository => _repoRepository;
 }
