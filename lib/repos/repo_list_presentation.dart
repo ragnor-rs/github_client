@@ -9,11 +9,19 @@ class RepoListPage extends StatefulWidget {
 }
 
 class _RepoListPageState extends State<RepoListPage> {
+
+  RepoListBloc _bloc;
+
   @override
   Widget build(BuildContext context) {
-    var mainComponent = MainComponentProvider.of(context);
+
+    if (_bloc == null) {
+      var mainComponent = MainComponentProvider.of(context);
+      _bloc = RepoListBloc(mainComponent.repoComponent);
+    }
+
     return BlocBuilder(
-      bloc: RepoListBloc(mainComponent.repoComponent),
+      bloc: _bloc,
       builder: (BuildContext context, RepoListState state) {
         if (state.isLoading) {
           return Center(
@@ -30,5 +38,13 @@ class _RepoListPageState extends State<RepoListPage> {
         }
       },
     );
+
   }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _bloc.dispose();
+  }
+
 }
